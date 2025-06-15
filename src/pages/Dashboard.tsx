@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getAllMenuItems } from '../services/MenuService';
 import { getAllOrders } from '../services/OrderService';
-import { MenuItem } from '../types/menuTypes';
-import { Order, OrderStatus } from '../types/orderTypes';
+import { OrderStatus } from '../types/orderTypes';
 
-const Dashboard: React.FC = () => {
+export default function Dashboard() {
   const [menuCount, setMenuCount] = useState(0);
   const [orderStats, setOrderStats] = useState({
     total: 0,
@@ -109,6 +108,4 @@ const Dashboard: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}

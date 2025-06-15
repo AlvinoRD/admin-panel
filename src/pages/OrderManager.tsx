@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getAllOrders, getOrdersByStatus, updateOrderStatus } from '../services/OrderService';
+import { getAllOrders, updateOrderStatus } from '../services/OrderService';
 import { Order, OrderStatus } from '../types/orderTypes';
 
-const OrderManager: React.FC = () => {
+export default function OrderManager() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -457,9 +457,6 @@ const OrderManager: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
-    </div>
+      )}    </div>
   );
-};
-
-export default OrderManager;
+}

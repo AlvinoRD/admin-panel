@@ -1,74 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { loginWithEmailAndPassword, resetPassword } from '../services/AuthService';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLogin } from '../hooks/useLogin';
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [resetSent, setResetSent] = useState(false);
+export default function Login() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { currentUser, isAdminUser } = useAuth();
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    error,
+    loading,
+    resetSent,
+    handleLogin,
+    handleResetPassword
+  } = useLogin();
   
   // Check if user is already logged in
   useEffect(() => {
     console.log("Login page - checking auth state:", { hasUser: !!currentUser, isAdmin: isAdminUser });
     
-    // If user is already logged in and is admin, redirect to dashboard
     if (currentUser && isAdminUser) {
       console.log("User already logged in, redirecting to dashboard");
       navigate('/admin/dashboard', { replace: true });
     }
   }, [currentUser, isAdminUser, navigate]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !password) {
-      setError('Email dan password harus diisi');
-      return;
-    }
-    
-    try {
-      setError(null);
-      setLoading(true);
-      console.log("Attempting login with:", email);
-      const user = await loginWithEmailAndPassword(email, password);
-      console.log("Login successful for user:", user.email);
-      
-      // Instead of immediately navigating, wait for auth state to update
-      // The AuthContext listener will handle the redirect if needed
-      // But we'll still navigate after a short delay as a fallback
+    const user = await handleLogin();
+    if (user) {
+      // Navigation fallback
       setTimeout(() => {
         console.log("Navigation fallback triggered, going to dashboard");
         navigate('/admin/dashboard', { replace: true });
       }, 1000);
-    } catch (error: any) {
-      console.error("Login error:", error);
-      setError('Login gagal: ' + (error.message || 'Terjadi kesalahan'));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleResetPassword = async () => {
-    if (!email) {
-      setError('Masukkan email untuk reset password');
-      return;
-    }
-    
-    try {
-      setError(null);
-      setLoading(true);
-      await resetPassword(email);
-      setResetSent(true);
-    } catch (error: any) {
-      setError('Gagal mengirim email reset: ' + (error.message || 'Terjadi kesalahan'));
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -89,7 +58,7 @@ const Login: React.FC = () => {
           </div>
         )}
         
-        <form onSubmit={handleSubmit} className="mt-4">
+        <form onSubmit={onSubmit} className="mt-4">
           <div className="mt-4">
             <label className="block" htmlFor="email">Email</label>
             <input
@@ -136,5 +105,3 @@ const Login: React.FC = () => {
     </div>
   );
 };
-
-export default Login;

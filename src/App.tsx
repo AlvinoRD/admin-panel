@@ -37,7 +37,7 @@ const Unauthorized = () => (
   </div>
 );
 
-const App: React.FC = () => {
+export default function App() {
   return (
     <AuthProvider>
       <Router>
@@ -67,6 +67,4 @@ const App: React.FC = () => {
       </Router>
     </AuthProvider>
   );
-};
-
-export default App;
+}

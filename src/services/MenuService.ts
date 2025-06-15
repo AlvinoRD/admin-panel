@@ -15,7 +15,7 @@ import { db } from '../firebase/firebase';
 import { MenuItem, MenuCategory } from '../types/menuTypes';
 
 const MENU_COLLECTION = 'menuItems';
-const CATEGORY_COLLECTION = 'menuCategories';
+const CATEGORY_COLLECTION = 'categories'; // Sesuai dengan collection yang sudah Anda buat
 
 // Convert Firebase Timestamp to Date
 const convertTimestamp = (timestamp: Timestamp | undefined): Date | undefined => {
@@ -103,7 +103,6 @@ export const getMenuItem = async (id: string): Promise<MenuItem | null> => {
 // CREATE a menu item
 export const createMenuItem = async (menuItem: MenuItem): Promise<string> => {
   try {
-    const now = new Date();
     const itemToAdd = {
       ...formatMenuItem(menuItem),
       createdAt: serverTimestamp(),

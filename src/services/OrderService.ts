@@ -13,7 +13,7 @@ import {
   Timestamp
 } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import { Order, OrderStatus, CartItem } from '../types/orderTypes';
+import { Order, OrderStatus } from '../types/orderTypes';
 
 const ORDER_COLLECTION = 'orders';
 

@@ -15,7 +15,5 @@ export interface MenuItem {
 
 export interface MenuCategory {
   id?: string;
-  name: string;
-  order?: number;
-  items?: MenuItem[];
+  nama: string; // Sesuai dengan field di Firestore
 }

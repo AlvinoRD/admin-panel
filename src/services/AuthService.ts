@@ -1,5 +1,4 @@
 import { 
-  getAuth,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
@@ -9,7 +8,6 @@ import {
   sendPasswordResetEmail
 } from 'firebase/auth';
 import { 
-  getFirestore,
   doc, 
   getDoc, 
   setDoc,

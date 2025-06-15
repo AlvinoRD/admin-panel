@@ -3,7 +3,7 @@ import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { logoutAdmin } from '../services/AuthService';
 
-const AdminLayout: React.FC = () => {
+export default function AdminLayout() {
   const { adminData } = useAuth();
   const navigate = useNavigate();
 
@@ -62,10 +62,7 @@ const AdminLayout: React.FC = () => {
         </header>
         <main className="p-6">
           <Outlet />
-        </main>
-      </div>
+        </main>      </div>
     </div>
   );
-};
-
-export default AdminLayout;
+}

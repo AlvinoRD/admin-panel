@@ -7,7 +7,7 @@ interface PrivateRouteProps {
   requireAdmin?: boolean;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, requireAdmin = true }) => {
+export default function PrivateRoute({ children, requireAdmin = true }: PrivateRouteProps) {
   const { currentUser, isAdminUser, loading, adminData } = useAuth();
   const location = useLocation();
 
@@ -44,10 +44,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, requireAdmin = tr
     console.log("User is not admin, redirecting to unauthorized");
     return <Navigate to="/unauthorized" state={{ from: location }} replace />;
   }
-
   // User sudah login dan memenuhi persyaratan
   console.log("Access granted to:", location.pathname);
   return <>{children}</>;
-};
-
-export default PrivateRoute;
+}

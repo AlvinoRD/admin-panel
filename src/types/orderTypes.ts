@@ -1,7 +1,5 @@
 // Types for orders and cart items
 
-import { MenuItem } from './menuTypes';
-
 export interface CartItem {
   id: string;
   menuItemId: string;

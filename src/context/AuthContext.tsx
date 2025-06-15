@@ -25,7 +25,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export function AuthProvider({ children }: AuthProviderProps) {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
   const [isAdminUser, setIsAdminUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -69,8 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setAdminData(null);
       }
 
-      setLoading(false);
-      console.log("Auth loading complete, state:", { 
+      setLoading(false);      console.log("Auth loading complete, state:", { 
         isUser: !!user, 
         isAdmin: user ? isAdminUser : false,
         loading: false 
@@ -78,6 +77,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
 
     return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const value = {
@@ -92,10 +92,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isAdmin: isAdminUser, 
     loading 
   });
-
   return (
     <AuthContext.Provider value={value}>
       {children} {/* Render children regardless of loading state */}
     </AuthContext.Provider>
   );
-};
+}
