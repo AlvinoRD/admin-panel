@@ -1,11 +1,10 @@
-// Impor fungsi yang Anda butuhkan dari SDK
+// Impor fungsi
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-// Konfigurasi Firebase untuk aplikasi web Anda
-// Untuk Firebase JS SDK v7.20.0 dan yang lebih baru, measurementId adalah opsional
+// Konfigurasi Firebase untuk aplikasi web
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
