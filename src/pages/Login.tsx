@@ -18,12 +18,12 @@ export default function Login() {
     handleResetPassword
   } = useLogin();
   
-  // Check if user is already logged in
+  // Periksa apakah pengguna sudah login dan adalah admin
   useEffect(() => {
     console.log("Login page - checking auth state:", { hasUser: !!currentUser, isAdmin: isAdminUser });
     
     if (currentUser && isAdminUser) {
-      console.log("User already logged in, redirecting to dashboard");
+      console.log("User already logged in and verified as admin, redirecting to dashboard");
       navigate('/admin/dashboard', { replace: true });
     }
   }, [currentUser, isAdminUser, navigate]);
@@ -33,11 +33,18 @@ export default function Login() {
     
     const user = await handleLogin();
     if (user) {
-      // Navigation fallback
+      console.log("Login successful, waiting for admin verification");
+      // Tambahkan delay untuk memastikan AuthContext memiliki cukup waktu untuk memverifikasi admin
       setTimeout(() => {
-        console.log("Navigation fallback triggered, going to dashboard");
-        navigate('/admin/dashboard', { replace: true });
-      }, 1000);
+        // Pengecekan ulang status admin setelah AuthContext seharusnya sudah memperbarui status
+        if (isAdminUser) {
+          console.log("Admin verification confirmed, redirecting to dashboard");
+          navigate('/admin/dashboard', { replace: true });
+        } else {
+          console.log("User not verified as admin, waiting for context update");
+          // Tetap di halaman login, useEffect akan mengarahkan jika isAdminUser berubah
+        }
+      }, 1500); // Tunggu 1.5 detik untuk memastikan proses verifikasi selesai
     }
   };
 

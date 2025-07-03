@@ -74,7 +74,7 @@ export const useFormManager = ({ categories, onSubmit }: UseFormManagerProps) =>
       await onSubmit(formData, isEditing);
       closeForm();
     } catch (error) {
-      // Error handling is done in the parent component
+      // Penanganan kesalahan dilakukan di komponen induk
     }
   };
 

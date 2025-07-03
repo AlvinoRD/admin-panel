@@ -1,33 +1,116 @@
-# Getting Started with Create React App
+# Admin Panel Sistem Manajemen Restoran
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Selamat datang di repositori proyek UAS (Ujian Akhir Semester) untuk mata kuliah Pemrograman Web Lanjut. Proyek ini adalah aplikasi admin panel untuk sistem manajemen restoran yang dibangun menggunakan React, TypeScript, dan Firebase sebagai Backend as a Service (BaaS).
 
-## Available Scripts
+Aplikasi ini dirancang untuk mengelola menu restoran, menangani pesanan pelanggan secara real-time, dan melihat statistik penjualan melalui dashboard. Aplikasi ini menggunakan Firebase Firestore untuk menyimpan dan mengelola data menu dan pesanan.
 
-In the project directory, you can run:
+## Demo Aplikasi
 
-### `npm start`
+Anda dapat mengakses dan mencoba aplikasi yang sudah di-deploy melalui link berikut:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[Akses Admin Panel](https://login-a3932-admin.web.app)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**Kredensial untuk Login:**  
+Email: ujicoba@gmail.com  
+Password: lab12345
 
-### `npm test`
+## Fitur Utama
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Autentikasi Aman**: Sistem login berbasis Firebase Authentication dengan verifikasi peran admin.
+- **Dashboard**: Tampilan ringkasan yang menampilkan jumlah menu, total pesanan, dan statistik pesanan berdasarkan status.
+- **Manajemen Menu**: Tambah, lihat, ubah, dan hapus menu. Setiap menu memiliki informasi nama, harga, deskripsi, kategori, dan status ketersediaan.
+- **Manajemen Pesanan**: Pemantauan pesanan secara real-time dengan kemampuan untuk mengubah status pesanan (pending, processing, ready, completed, cancelled).
+- **Antarmuka Responsif**: Desain yang responsif menggunakan Tailwind CSS untuk pengalaman pengguna yang optimal.
 
-### `npm run build`
+## Teknologi yang Digunakan
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Framework Frontend**: React dengan TypeScript
+- **State Management**: React Context API
+- **Backend**: Firebase (Authentication, Firestore)
+- **Styling**: Tailwind CSS
+- **Routing**: React Router
+- **Development & Build**: Create React App
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Struktur Proyek
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **src/**: Direktori utama untuk kode sumber aplikasi.
+  - **components/**: Berisi komponen UI yang dapat digunakan kembali.
+    - **AdminLayout.tsx**: Layout untuk halaman admin dengan navigasi sidebar.
+    - **PrivateRoute.tsx**: Komponen untuk menangani rute terproteksi yang memerlukan autentikasi.
+    - **forms/**: Komponen form untuk input data.
+    - **tables/**: Komponen tabel untuk menampilkan data.
+  - **context/**: Implementasi React Context API untuk state management global.
+    - **AuthContext.tsx**: Konteks untuk manajemen state autentikasi.
+  - **firebase/**: Konfigurasi dan setup Firebase.
+    - **firebase.ts**: Inisialisasi Firebase dan ekspor instance.
+  - **hooks/**: Custom React hooks untuk logika yang dapat digunakan kembali.
+    - **useLogin.ts**: Hook untuk manajemen state login.
+    - **useMenuManager.ts**: Hook untuk operasi CRUD pada menu.
+    - **useFormManager.ts**: Hook untuk manajemen state form.
+
+  - **pages/**: Halaman-halaman utama aplikasi.
+    - **Dashboard.tsx**: Halaman dashboard dengan statistik.
+    - **Login.tsx**: Halaman login.
+    - **MenuManager.tsx**: Halaman manajemen menu.
+    - **OrderManager.tsx**: Halaman manajemen pesanan.
+  - **services/**: Layer service untuk operasi data dan logika bisnis.
+    - **AuthService.ts**: Service untuk autentikasi dan manajemen user.
+    - **MenuService.ts**: Service untuk operasi CRUD menu.
+    - **OrderService.ts**: Service untuk operasi pesanan.
+  - **types/**: Definisi TypeScript untuk tipe data aplikasi.
+    - **menuTypes.ts**: Definisi tipe untuk menu dan kategori.
+    - **orderTypes.ts**: Definisi tipe untuk pesanan dan status.
+  - **utils/**: Utilitas dan fungsi helper.
+    - **categoryUtils.ts**: Fungsi utility untuk kategori menu.
+
+## Arsitektur Aplikasi
+
+Aplikasi ini diimplementasikan menggunakan Layered Architecture:
+
+1. **Presentation Layer**: Komponen React di folder `components/` dan `pages/`.
+2. **Business Logic Layer**: Service dan custom hooks di folder `services/` dan `hooks/`.
+3. **Data Access Layer**: Integrasi dengan Firebase Firestore yang diimplementasikan di service.
+
+Arsitektur ini memungkinkan pemisahan kepentingan (separation of concerns), memudahkan pengujian, dan meningkatkan pemeliharaan kode.
+
+## Fitur Keamanan
+
+Aplikasi ini mengimplementasikan beberapa fitur keamanan:
+
+- **Autentikasi Firebase**: Menggunakan sistem autentikasi yang aman dari Firebase.
+- **Rute Terproteksi**: Menggunakan PrivateRoute untuk mencegah akses tidak sah ke halaman admin.
+- **Verifikasi Peran**: Memeriksa apakah pengguna memiliki peran admin sebelum memberikan akses.
+- **Validasi Input**: Validasi input untuk mencegah data tidak valid disimpan ke database.
+
+## Pengembangan Masa Depan
+
+Beberapa fitur yang direncanakan untuk pengembangan masa depan:
+
+1. **Manajemen Inventaris**: Sistem untuk melacak stok bahan baku.
+2. **Analitik Bisnis**: Dashboard analitik yang lebih canggih dengan visualisasi data.
+3. **Integrasi Pembayaran**: Dukungan untuk berbagai metode pembayaran online.
+4. **Sistem Notifikasi**: Notifikasi real-time untuk admin dan pelanggan.
+5. **Aplikasi Mobile**: Versi mobile dari admin panel untuk manajemen on-the-go.
+
+## Setup Firebase
+
+Untuk konfigurasi Firebase:
+
+1. Salin file `src/firebase/firebase.example.ts` menjadi `src/firebase/firebase.ts`
+2. Ganti placeholder dengan konfigurasi Firebase Anda sendiri
+3. Lihat `FIREBASE_SETUP.md` untuk instruksi lebih detail
+- **Manajemen Menu**: Tambah, lihat, ubah, dan hapus menu. Setiap menu memiliki informasi nama, harga, deskripsi, kategori, dan status ketersediaan.
+- **Manajemen Pesanan**: Pemantauan pesanan secara real-time dengan kemampuan untuk mengubah status pesanan (pending, processing, ready, completed, cancelled).
+- **Antarmuka Responsif**: Desain yang responsif menggunakan Tailwind CSS untuk pengalaman pengguna yang optimal.
+
+## Teknologi yang Digunakan
+
+- **Framework Frontend**: React dengan TypeScript
+- **State Management**: React Context API
+- **Backend**: Firebase (Authentication, Firestore)
+- **Styling**: Tailwind CSS
+- **Routing**: React Router
+- **Development & Build**: Create React App
 
 ### `npm run eject`
 

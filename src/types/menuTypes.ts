@@ -1,4 +1,4 @@
-// Define types for menu items data
+// Mendefinisikan tipe data untuk item menu
 
 export interface MenuItem {
   id?: string;

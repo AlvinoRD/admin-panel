@@ -18,11 +18,11 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        // Fetch menu items count
+        // Ambil jumlah item menu
         const menuItems = await getAllMenuItems();
         setMenuCount(menuItems.length);
         
-        // Fetch orders and calculate stats
+        // Ambil pesanan dan hitung statistik
         const orders = await getAllOrders();
         
         const stats = {

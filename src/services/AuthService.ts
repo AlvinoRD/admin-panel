@@ -15,7 +15,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/firebase';
 
-// Interface for admin user data in Firestore
+// Antarmuka untuk data pengguna admin di Firestore
 interface AdminUser {
   uid: string;
   email: string;
@@ -25,12 +25,12 @@ interface AdminUser {
   lastLogin?: Date;
 }
 
-// Login with email and password
+// Login dengan email dan password
 export const loginWithEmailAndPassword = async (email: string, password: string): Promise<FirebaseUser> => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     
-    // Update last login timestamp
+    // Perbarui timestamp login terakhir
     try {
       const userRef = doc(db, 'adminUsers', userCredential.user.uid);
       await setDoc(userRef, {
@@ -48,7 +48,7 @@ export const loginWithEmailAndPassword = async (email: string, password: string)
   }
 };
 
-// Check if user is admin
+// Periksa apakah user adalah admin
 export const isAdmin = async (user: FirebaseUser): Promise<boolean> => {
   if (!user) return false;
   
@@ -72,18 +72,18 @@ export const isAdmin = async (user: FirebaseUser): Promise<boolean> => {
   }
 };
 
-// Register new admin (only super admin can do this)
+// Daftarkan admin baru (hanya super admin yang dapat melakukannya)
 export const registerAdmin = async (email: string, password: string, displayName: string): Promise<FirebaseUser> => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     
-    // Update displayName
+    // Perbarui displayName
     await updateProfile(user, {
       displayName
     });
     
-    // Create admin user in Firestore
+    // Buat pengguna admin di Firestore
     await setDoc(doc(db, 'adminUsers', user.uid), {
       uid: user.uid,
       email: user.email,
@@ -99,7 +99,7 @@ export const registerAdmin = async (email: string, password: string, displayName
   }
 };
 
-// Sign out
+// Keluar
 export const logoutAdmin = async (): Promise<void> => {
   try {
     await signOut(auth);
@@ -109,7 +109,7 @@ export const logoutAdmin = async (): Promise<void> => {
   }
 };
 
-// Reset password
+// Atur ulang password
 export const resetPassword = async (email: string): Promise<void> => {
   try {
     await sendPasswordResetEmail(auth, email);
@@ -119,7 +119,7 @@ export const resetPassword = async (email: string): Promise<void> => {
   }
 };
 
-// Get admin user data
+// Ambil data pengguna admin
 export const getAdminData = async (uid: string): Promise<AdminUser | null> => {
   if (!uid) return null;
   
@@ -139,7 +139,7 @@ export const getAdminData = async (uid: string): Promise<AdminUser | null> => {
   }
 };
 
-// Auth state listener
+// Listener status autentikasi
 export const onAuthStateChange = (callback: (user: FirebaseUser | null) => void): () => void => {
   return onAuthStateChanged(auth, callback);
 };

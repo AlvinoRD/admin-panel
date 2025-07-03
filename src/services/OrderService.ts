@@ -17,12 +17,12 @@ import { Order, OrderStatus } from '../types/orderTypes';
 
 const ORDER_COLLECTION = 'orders';
 
-// Convert Firebase Timestamp to Date
+// Mengkonversi Firebase Timestamp ke Date
 const convertTimestamp = (timestamp: Timestamp | undefined): Date | undefined => {
   return timestamp ? timestamp.toDate() : undefined;
 };
 
-// Format Order for Firestore (Date to Timestamp)
+// Format Order untuk Firestore (Date ke Timestamp)
 const formatOrder = (order: Order) => {
   const formattedOrder: any = { ...order };
   if (formattedOrder.createdAt instanceof Date) {
@@ -37,7 +37,7 @@ const formatOrder = (order: Order) => {
   return formattedOrder;
 };
 
-// Format Order from Firestore (Timestamp to Date)
+// Format Order dari Firestore (Timestamp ke Date)
 const formatOrderFromFirestore = (order: any): Order => {
   return {
     ...order,
@@ -47,7 +47,7 @@ const formatOrderFromFirestore = (order: any): Order => {
   };
 };
 
-// GET all orders
+// AMBIL semua pesanan
 export const getAllOrders = async (): Promise<Order[]> => {
   try {
     const orderCollection = collection(db, ORDER_COLLECTION);
@@ -66,7 +66,7 @@ export const getAllOrders = async (): Promise<Order[]> => {
   }
 };
 
-// GET orders by status
+// AMBIL pesanan berdasarkan status
 export const getOrdersByStatus = async (status: OrderStatus): Promise<Order[]> => {
   try {
     const orderCollection = collection(db, ORDER_COLLECTION);
@@ -89,7 +89,7 @@ export const getOrdersByStatus = async (status: OrderStatus): Promise<Order[]> =
   }
 };
 
-// GET orders by user
+// AMBIL pesanan berdasarkan pengguna
 export const getOrdersByUser = async (userId: string): Promise<Order[]> => {
   try {
     const orderCollection = collection(db, ORDER_COLLECTION);
@@ -112,7 +112,7 @@ export const getOrdersByUser = async (userId: string): Promise<Order[]> => {
   }
 };
 
-// GET a single order
+// AMBIL satu pesanan
 export const getOrder = async (id: string): Promise<Order | null> => {
   try {
     const orderDocRef = doc(db, ORDER_COLLECTION, id);
@@ -132,7 +132,7 @@ export const getOrder = async (id: string): Promise<Order | null> => {
   }
 };
 
-// CREATE an order
+// BUAT pesanan baru
 export const createOrder = async (order: Order): Promise<string> => {
   try {
     const orderToAdd = {
@@ -141,7 +141,7 @@ export const createOrder = async (order: Order): Promise<string> => {
       updatedAt: serverTimestamp()
     };
     
-    // Remove id if exists (Firestore will generate one)
+    // Hapus id jika ada (Firestore akan menghasilkan id baru)
     if (orderToAdd.id) delete orderToAdd.id;
     
     const docRef = await addDoc(collection(db, ORDER_COLLECTION), orderToAdd);
@@ -152,12 +152,12 @@ export const createOrder = async (order: Order): Promise<string> => {
   }
 };
 
-// UPDATE an order
+// PERBARUI pesanan
 export const updateOrder = async (id: string, order: Partial<Order>): Promise<void> => {
   try {
     const orderDocRef = doc(db, ORDER_COLLECTION, id);
     
-    // If updating status to completed, set completedAt
+    // Jika status diubah menjadi selesai, atur completedAt
     const updateData: any = { ...order, updatedAt: serverTimestamp() };
     if (order.status === OrderStatus.COMPLETED && !order.completedAt) {
       updateData.completedAt = serverTimestamp();
@@ -170,7 +170,7 @@ export const updateOrder = async (id: string, order: Partial<Order>): Promise<vo
   }
 };
 
-// UPDATE order status
+// PERBARUI status pesanan
 export const updateOrderStatus = async (id: string, status: OrderStatus): Promise<void> => {
   try {
     const orderDocRef = doc(db, ORDER_COLLECTION, id);
@@ -179,7 +179,7 @@ export const updateOrderStatus = async (id: string, status: OrderStatus): Promis
       updatedAt: serverTimestamp() 
     };
     
-    // If status is completed, set completedAt
+    // Jika status selesai, atur completedAt
     if (status === OrderStatus.COMPLETED) {
       updateData.completedAt = serverTimestamp();
     }
@@ -191,7 +191,7 @@ export const updateOrderStatus = async (id: string, status: OrderStatus): Promis
   }
 };
 
-// DELETE an order (admin only)
+// HAPUS pesanan (hanya admin)
 export const deleteOrder = async (id: string): Promise<void> => {
   try {
     const orderDocRef = doc(db, ORDER_COLLECTION, id);

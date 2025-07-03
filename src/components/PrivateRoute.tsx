@@ -11,7 +11,7 @@ export default function PrivateRoute({ children, requireAdmin = true }: PrivateR
   const { currentUser, isAdminUser, loading, adminData } = useAuth();
   const location = useLocation();
 
-  // Debug logging
+  // Logging untuk debugging
   useEffect(() => {
     console.log("PrivateRoute rendering path:", location.pathname);
     console.log("Auth state in PrivateRoute:", { 

@@ -1,4 +1,4 @@
-// Types for orders and cart items
+// Tipe data untuk pesanan dan item keranjang
 
 export interface CartItem {
   id: string;

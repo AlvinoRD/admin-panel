@@ -13,7 +13,7 @@ export default function MenuManager() {
     deleteMenu
   } = useMenuManager();
 
-  // Form state
+  // State formulir
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<MenuItem>({
@@ -25,7 +25,7 @@ export default function MenuManager() {
     isPopular: false
   });
 
-  // Reset form to initial state
+  // Reset formulir ke keadaan awal
   const resetForm = () => {
     setFormData({
       name: '',
@@ -37,7 +37,7 @@ export default function MenuManager() {
     });
   };
 
-  // Handle form input changes
+  // Menangani perubahan input formulir
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     
@@ -60,21 +60,21 @@ export default function MenuManager() {
     }
   };
 
-  // Handle opening form for editing
+  // Menangani pembukaan formulir untuk pengeditan
   const handleEdit = (item: MenuItem) => {
     setFormData(item);
     setIsEditing(true);
     setIsFormOpen(true);
   };
 
-  // Handle opening form for creating
+  // Menangani pembukaan formulir untuk pembuatan
   const handleCreate = () => {
     resetForm();
     setIsEditing(false);
     setIsFormOpen(true);
   };
 
-  // Handle form submission
+  // Menangani pengiriman formulir
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -92,7 +92,7 @@ export default function MenuManager() {
     }
   };
 
-  // Handle item deletion
+  // Menangani penghapusan item
   const handleDelete = async (id: string) => {
     if (!window.confirm('Apakah Anda yakin ingin menghapus item ini?')) {
       return;
@@ -105,7 +105,7 @@ export default function MenuManager() {
     }
   };
 
-  // Handle form cancel
+  // Menangani pembatalan formulir
   const handleCancel = () => {
     setIsFormOpen(false);
     resetForm();

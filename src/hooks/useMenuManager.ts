@@ -14,7 +14,7 @@ export const useMenuManager = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch data
+  // Ambil data
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -35,7 +35,7 @@ export const useMenuManager = () => {
     }
   };
 
-  // Test categories
+  // Uji kategori
   const testGetCategories = async () => {
     try {
       console.log('Testing categories...');
@@ -47,7 +47,7 @@ export const useMenuManager = () => {
     }
   };
 
-  // Create menu item
+  // Buat item menu
   const createMenu = async (formData: MenuItem) => {
     try {
       setLoading(true);
@@ -64,7 +64,7 @@ export const useMenuManager = () => {
     }
   };
 
-  // Update menu item
+  // Perbarui item menu
   const updateMenu = async (id: string, formData: MenuItem) => {
     try {
       setLoading(true);
@@ -84,7 +84,7 @@ export const useMenuManager = () => {
     }
   };
 
-  // Delete menu item
+  // Hapus item menu
   const deleteMenu = async (id: string) => {
     try {
       setLoading(true);

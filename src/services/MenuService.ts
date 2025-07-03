@@ -17,12 +17,12 @@ import { MenuItem, MenuCategory } from '../types/menuTypes';
 const MENU_COLLECTION = 'menuItems';
 const CATEGORY_COLLECTION = 'categories'; // Sesuai dengan collection yang sudah Anda buat
 
-// Convert Firebase Timestamp to Date
+// Mengkonversi Firebase Timestamp ke Date
 const convertTimestamp = (timestamp: Timestamp | undefined): Date | undefined => {
   return timestamp ? timestamp.toDate() : undefined;
 };
 
-// Format MenuItem for Firestore (Date to Timestamp)
+// Format MenuItem untuk Firestore (Date ke Timestamp)
 const formatMenuItem = (item: MenuItem) => {
   const formattedItem: any = { ...item };
   if (formattedItem.createdAt instanceof Date) {
@@ -34,7 +34,7 @@ const formatMenuItem = (item: MenuItem) => {
   return formattedItem;
 };
 
-// Format MenuItem from Firestore (Timestamp to Date)
+// Format MenuItem dari Firestore (Timestamp ke Date)
 const formatMenuItemFromFirestore = (item: any): MenuItem => {
   return {
     ...item,
@@ -43,7 +43,7 @@ const formatMenuItemFromFirestore = (item: any): MenuItem => {
   };
 };
 
-// GET all menu items
+// AMBIL semua item menu
 export const getAllMenuItems = async (): Promise<MenuItem[]> => {
   try {
     const menuCollection = collection(db, MENU_COLLECTION);
@@ -61,7 +61,7 @@ export const getAllMenuItems = async (): Promise<MenuItem[]> => {
   }
 };
 
-// GET menu items by category
+// AMBIL item menu berdasarkan kategori
 export const getMenuItemsByCategory = async (category: string): Promise<MenuItem[]> => {
   try {
     const menuCollection = collection(db, MENU_COLLECTION);
@@ -80,7 +80,7 @@ export const getMenuItemsByCategory = async (category: string): Promise<MenuItem
   }
 };
 
-// GET a single menu item
+// AMBIL satu item menu
 export const getMenuItem = async (id: string): Promise<MenuItem | null> => {
   try {
     const menuDocRef = doc(db, MENU_COLLECTION, id);
@@ -100,7 +100,7 @@ export const getMenuItem = async (id: string): Promise<MenuItem | null> => {
   }
 };
 
-// CREATE a menu item
+// BUAT item menu baru
 export const createMenuItem = async (menuItem: MenuItem): Promise<string> => {
   try {
     const itemToAdd = {
@@ -109,7 +109,7 @@ export const createMenuItem = async (menuItem: MenuItem): Promise<string> => {
       updatedAt: serverTimestamp()
     };
     
-    // Remove id if exists (Firestore will generate one)
+    // Hapus id jika ada (Firestore akan menghasilkan id baru)
     if (itemToAdd.id) delete itemToAdd.id;
     
     const docRef = await addDoc(collection(db, MENU_COLLECTION), itemToAdd);
@@ -120,7 +120,7 @@ export const createMenuItem = async (menuItem: MenuItem): Promise<string> => {
   }
 };
 
-// UPDATE a menu item
+// PERBARUI item menu
 export const updateMenuItem = async (id: string, menuItem: Partial<MenuItem>): Promise<void> => {
   try {
     const menuDocRef = doc(db, MENU_COLLECTION, id);
@@ -136,7 +136,7 @@ export const updateMenuItem = async (id: string, menuItem: Partial<MenuItem>): P
   }
 };
 
-// DELETE a menu item
+// HAPUS item menu
 export const deleteMenuItem = async (id: string): Promise<void> => {
   try {
     const menuDocRef = doc(db, MENU_COLLECTION, id);
@@ -147,9 +147,9 @@ export const deleteMenuItem = async (id: string): Promise<void> => {
   }
 };
 
-// Category Operations
+// Operasi Kategori
 
-// GET all categories
+// AMBIL semua kategori
 export const getAllCategories = async (): Promise<MenuCategory[]> => {
   try {
     const categoryCollection = collection(db, CATEGORY_COLLECTION);
@@ -166,7 +166,7 @@ export const getAllCategories = async (): Promise<MenuCategory[]> => {
   }
 };
 
-// CREATE a category
+// BUAT kategori
 export const createCategory = async (category: MenuCategory): Promise<string> => {
   try {
     const categoryToAdd = { ...category };
@@ -180,7 +180,7 @@ export const createCategory = async (category: MenuCategory): Promise<string> =>
   }
 };
 
-// UPDATE a category
+// PERBARUI kategori
 export const updateCategory = async (id: string, category: Partial<MenuCategory>): Promise<void> => {
   try {
     const categoryDocRef = doc(db, CATEGORY_COLLECTION, id);
@@ -191,7 +191,7 @@ export const updateCategory = async (id: string, category: Partial<MenuCategory>
   }
 };
 
-// DELETE a category
+// HAPUS kategori
 export const deleteCategory = async (id: string): Promise<void> => {
   try {
     const categoryDocRef = doc(db, CATEGORY_COLLECTION, id);

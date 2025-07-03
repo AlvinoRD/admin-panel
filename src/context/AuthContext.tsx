@@ -69,7 +69,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setAdminData(null);
       }
 
-      setLoading(false);      console.log("Auth loading complete, state:", { 
+      setLoading(false);
+      console.log("Auth loading complete, state:", { 
         isUser: !!user, 
         isAdmin: user ? isAdminUser : false,
         loading: false 
